@@ -140,12 +140,33 @@ class ExampleA extends Component {
                     }}
                 >
                     {dataValues.map(val => {
-                        return val.label + ' ';
+                        if(this.isValidHttpUrl(val.label)){
+                            return <a style={{ color: '#e86161' }} href={dataValues.map(val => {
+                                return val.label + ' ';
+                            })}>{dataValues.map(val => {
+                                return val.label + ' ';
+                            })}</a>
+                        }
+                        else {
+                            return val.label + ' ';
+                        }
                     })}
                 </td>
             );
         });
     };
+
+    isValidHttpUrl(string) {
+        let url;
+        
+        try {
+          url = new URL(string);
+        } catch (_) {
+          return false;  
+        }
+      
+        return url.protocol === "http:" || url.protocol === "https:";
+      };
 
     /** Component Rendering Function **/
     render() {
